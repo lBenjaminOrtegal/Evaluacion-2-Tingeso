@@ -1,0 +1,51 @@
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_ZONE}:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://${KEYCLOAK_HOST}:7080/realms/tingeso-2-realm/protocol/openid-connect/certs
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://${KEYCLOAK_HOST}:7080/realms/tingeso-2-realm
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: tingeso-2-backend
+            client-secret: Z5uuNMVdXMPEvzUkYm5jjwadC50gmakA
+            authorization-grant-type: authorization_code
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: tour-packages-service
+              uri: lb://microservice-tour-packages
+              predicates:
+                - Path=/api/tour-packages/**
+
+            - id: reservations-service
+              uri: lb://microservice-reservations
+              predicates:
+                - Path=/api/reservations/**
+
+            - id: discounts-service
+              uri: lb://microservice-reservations
+              predicates:
+                - Path=/api/discounts/**
+
+            - id: transactions-service
+              uri: lb://microservice-transactions
+              predicates:
+                - Path=/api/transactions/**
