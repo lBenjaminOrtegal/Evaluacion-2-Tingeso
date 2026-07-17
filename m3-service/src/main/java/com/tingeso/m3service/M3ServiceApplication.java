@@ -1,12 +1,13 @@
-package com.tingeso.apigateway;
+package com.tingeso.m3service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiGatewayApplication {
+public class M3ServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ApiGatewayApplication.class, args);
+        SpringApplication.run(M3ServiceApplication.class, args);
     }
+
 }

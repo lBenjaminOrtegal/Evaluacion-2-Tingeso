@@ -4,10 +4,10 @@ server:
 spring:
   application:
     name: config-server
+  profiles:
+    active: native
   cloud:
     config:
       server:
-        git:
-          default-label: main
-          uri: https://github.com/lBenjaminOrtegal/Evaluacion-2-Tingeso
-          search-paths: config-data
+        native:
+          search-locations: file:./config-data

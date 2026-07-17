@@ -2,11 +2,11 @@ import httpClient from "../http-common";
 import type { TourPackage } from "../interfaces/tourPackage.interface";
 
 const getAll = () => {
-  return httpClient.get("/api/tour-packages");
+  return httpClient.get("/api/search/tour-packages");
 };
 
 const getById = (id: number) => {
-  return httpClient.get(`/api/tour-packages/${id}`);
+  return httpClient.get(`/api/search/tour-packages/${id}`);
 };
 
 const getByCustomFilters = (
@@ -20,7 +20,7 @@ const getByCustomFilters = (
   endDate: string,
   state: string,
 ) => {
-  return httpClient.get(`/api/tour-packages/filters`, {
+  return httpClient.get(`/api/search/tour-packages/filters`, {
     params: {
       name,
       destiny,
