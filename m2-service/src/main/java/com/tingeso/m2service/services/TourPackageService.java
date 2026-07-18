@@ -30,7 +30,7 @@ public class TourPackageService {
     @Transactional(readOnly = true)
     public List<Reservation> m4_findByTourPackageId(Long id) { // reservations
         try {
-            Reservation[] arr = restTemplate.getForObject("http://m4-service/api/reservations/by-package/" + id, Reservation[].class);
+            Reservation[] arr = restTemplate.getForObject("http://m4-service/internal/reservations/by-package/" + id, Reservation[].class);
             return arr != null ? Arrays.asList(arr) : Collections.emptyList();
         } catch (Exception e) {
             throw new ResourceNotFoundException("Cannot verify existing reservations.");
@@ -86,6 +86,13 @@ public class TourPackageService {
     }
 
     @Transactional
+    public TourPackage justSave(TourPackage tourPackage) {
+        TourPackage saved = tourPackageRepository.save(tourPackage);
+        syncPostToM3(saved);
+        return saved;
+    }
+
+    @Transactional
     public TourPackage update(TourPackage tourPackage) {
         TourPackage existingPackage = tourPackageRepository.findById(tourPackage.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("TourPackage not found with id: " + tourPackage.getId()));
@@ -98,6 +105,7 @@ public class TourPackageService {
         existingPackage.setServices(tourPackage.getServices());
         existingPackage.setConditions(tourPackage.getConditions());
         existingPackage.setRestrictions(tourPackage.getRestrictions());
+        existingPackage.setDescription(tourPackage.getDescription());
         int occupiedSpots = existingPackage.getInitialSpots() - existingPackage.getRemainingSpots();
         if (!reservations.isEmpty()) { // if had reservations
             if (tourPackage.getInitialSpots() < occupiedSpots) {
@@ -107,6 +115,7 @@ public class TourPackageService {
                 existingPackage.setRemainingSpots(tourPackage.getInitialSpots() - occupiedSpots);
             }
         } else {
+            existingPackage.setDestiny(tourPackage.getDestiny());
             existingPackage.setStartDate(tourPackage.getStartDate());
             existingPackage.setEndDate(tourPackage.getEndDate());
             existingPackage.calculateDuration();

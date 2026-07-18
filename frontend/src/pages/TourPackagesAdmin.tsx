@@ -32,7 +32,7 @@ function TourPackagesAdmin() {
   const getTourPackages = async () => {
     try {
       setLoading(true);
-      const response = await tourPackageService.getAll();
+      const response = await tourPackageService.getAllAdmin();
       var tourPackages = response.data;
       tourPackages.reverse();
       setTourPackages(tourPackages);

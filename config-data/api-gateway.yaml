@@ -23,7 +23,18 @@ spring:
               uri: lb://m2-service
               predicates:
                 - Path=/api/tour-packages/**
+
             - id: tour-packages-search-service
               uri: lb://m3-service
               predicates:
                 - Path=/api/search/tour-packages/**
+
+            - id: reservations-service
+              uri: lb://m4-service
+              predicates:
+                - Path=/api/reservations/**
+
+            - id: discounts-service
+              uri: lb://m4-service
+              predicates:
+                - Path=/api/discounts/**

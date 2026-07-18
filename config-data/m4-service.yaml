@@ -1,0 +1,26 @@
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_ZONE}:8761/eureka/
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://${KEYCLOAK_HOST}:7080/realms/tingeso-2-realm/protocol/openid-connect/certs
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:3306/${DB_M4}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

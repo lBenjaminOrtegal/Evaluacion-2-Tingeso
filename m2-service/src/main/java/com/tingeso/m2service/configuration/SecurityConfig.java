@@ -31,6 +31,7 @@ public class SecurityConfig {
                                 "/api/tour-packages",
                                 "/api/tour-packages/filters",
                                 "/api/tour-packages/{id}").permitAll()
+                        .requestMatchers("/internal/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 ->
@@ -46,7 +47,6 @@ public class SecurityConfig {
             if (realmAccess != null && realmAccess.get("roles") instanceof List<?> roles) {
                 roles.forEach(r -> authorities.add(new SimpleGrantedAuthority("ROLE_" + r)));
             }
-
             return authorities;
         });
         return converter;

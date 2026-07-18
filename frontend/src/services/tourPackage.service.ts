@@ -1,12 +1,22 @@
 import httpClient from "../http-common";
 import type { TourPackage } from "../interfaces/tourPackage.interface";
 
-const getAll = () => {
+// separate users from admin for get methods (users m3, admin m2)
+
+const getAllUser = () => {
   return httpClient.get("/api/search/tour-packages");
 };
 
-const getById = (id: number) => {
+const getAllAdmin = () => {
+  return httpClient.get("/api/tour-packages");
+};
+
+const getByIdUser = (id: number) => {
   return httpClient.get(`/api/search/tour-packages/${id}`);
+};
+
+const getByIdAdmin = (id: number) => {
+  return httpClient.get(`/api/tour-packages/${id}`);
 };
 
 const getByCustomFilters = (
@@ -48,8 +58,10 @@ const deleteById = (id: number) => {
 };
 
 export default {
-  getAll,
-  getById,
+  getAllUser,
+  getAllAdmin,
+  getByIdUser,
+  getByIdAdmin,
   getByCustomFilters,
   create,
   update,

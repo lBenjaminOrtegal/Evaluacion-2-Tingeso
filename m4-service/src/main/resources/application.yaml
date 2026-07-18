@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: m4-service
+  config:
+    import: "optional:configserver:http://${CONFIG_HOST}:8081"

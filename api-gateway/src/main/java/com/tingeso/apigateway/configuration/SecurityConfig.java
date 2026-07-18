@@ -34,9 +34,9 @@ public class SecurityConfig {
                         .pathMatchers("/actuator/**").permitAll()
                         .pathMatchers("/api/tour-packages/sync/**").denyAll()
                         .pathMatchers("/api/search/tour-packages/sync/**").denyAll()
+                        .pathMatchers("/internal/**").denyAll()
                         .pathMatchers(HttpMethod.GET, // m2
                                 "/api/tour-packages",
-                                "/api/tour-packages/filters",
                                 "/api/tour-packages/{id}"
                         ).permitAll()
                         .pathMatchers(HttpMethod.GET, // m3

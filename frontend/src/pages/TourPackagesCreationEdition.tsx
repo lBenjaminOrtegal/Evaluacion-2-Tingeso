@@ -49,7 +49,7 @@ function TourPackageCreationEdition() {
   const setData = async () => {
     try {
       setLoading(true);
-      const response = await tourPackageService.getById(Number(id));
+      const response = await tourPackageService.getByIdAdmin(Number(id));
       const pkg = response.data;
       setName(pkg.name);
       setDestiny(pkg.destiny);

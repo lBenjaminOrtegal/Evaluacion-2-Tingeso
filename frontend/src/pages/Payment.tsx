@@ -47,7 +47,7 @@ function Payment() {
       const reservationData: Reservation = reservationResponse.data;
       setReservation(reservationData);
 
-      const tourPackageResponse = await tourPackageService.getById(
+      const tourPackageResponse = await tourPackageService.getByIdUser(
         reservationData.tourPackageId,
       );
       setTourPackage(tourPackageResponse.data);

@@ -47,7 +47,7 @@ function ReservationCreationEdition() {
   const getData = async () => {
     try {
       setLoading(true);
-      const responseTourPackage = await tourPackageService.getById(Number(id));
+      const responseTourPackage = await tourPackageService.getByIdUser(Number(id));
       setTourPackage(responseTourPackage.data);
       var passengers = 1;
       if (reservationId) {

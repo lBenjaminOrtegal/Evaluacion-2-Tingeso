@@ -100,7 +100,7 @@ function ReservationsView() {
   const getTourPackage = async (id: number) => {
     try {
       setLoading(true);
-      const response = await tourPackageService.getById(id);
+      const response = await tourPackageService.getByIdUser(id);
       setTourPackage(response.data);
     } catch (error) {
       console.error("Error cargando paquete túristico:", error);
