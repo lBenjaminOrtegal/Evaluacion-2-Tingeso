@@ -38,3 +38,8 @@ spring:
               uri: lb://m4-service
               predicates:
                 - Path=/api/discounts/**
+
+            - id: transactions-service
+              uri: lb://m5-service
+              predicates:
+                - Path=/api/transactions/**

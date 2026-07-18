@@ -171,7 +171,7 @@ function Payment() {
             <p className="fw-medium text-muted">
               Monto de la transacción:{" "}
               <span className="fw-semibold text-dark">
-                {formatCurrency(Number(createdTransaction?.amount))}
+                {formatCurrency(Number(createdTransaction?.amount))} CLP
               </span>
             </p>
             <p className="fw-medium text-muted">
@@ -264,7 +264,7 @@ function Payment() {
                     Precio por persona
                   </span>
                   <span className="fw-semibold text-dark">
-                    {formatCurrency(Number(tourPackage?.price))}
+                    {formatCurrency(Number(tourPackage?.price))} CLP
                   </span>
                 </div>
               </div>
@@ -280,7 +280,7 @@ function Payment() {
                   </small>
                 </div>
                 <span className="fs-3 fw-bold text-success">
-                  {formatCurrency(reservation.price)}
+                  {formatCurrency(reservation.price)} CLP
                 </span>
               </Stack>
             </Stack>

@@ -98,6 +98,13 @@ public class ReservationService {
     }
 
     @Transactional
+    public Reservation justSave(Reservation reservation) {
+        Reservation saved = reservationRepository.save(reservation);
+//        syncPostToM6(saved);
+        return saved;
+    }
+
+    @Transactional
     public Reservation update(Reservation reservation) {
         Reservation reservationSaved = reservationRepository.findById(reservation.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Reservation not found with id " + reservation.getId()));

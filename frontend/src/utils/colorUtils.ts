@@ -52,8 +52,8 @@ const RESERVATION_WORD: Record<string, string> = {
 };
 
 const TRANSACTION_STATE_WORD: Record<string, string> = {
-  SUCCESS: "ÉXITOSA",
-  FAILED: "FALLIDA",
+  SUCCESS: "Éxitosa",
+  FAILED: "Fallida",
 };
 
 const PAYMENT_METHOD_WORD: Record<string, string> = {

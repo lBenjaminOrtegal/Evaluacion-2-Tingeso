@@ -314,7 +314,7 @@ function TourPackagesView() {
                   />
                   <div className="position-absolute top-0 end-0 m-3">
                     <span className="badge bg-white text-dark shadow-sm py-2 px-3 fw-bold">
-                      {formatCurrency(tour.price)}
+                      {formatCurrency(tour.price)} CLP
                     </span>
                   </div>
                 </div>
