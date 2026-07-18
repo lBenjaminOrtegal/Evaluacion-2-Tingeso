@@ -23,13 +23,14 @@
         <module name="m2-service" />
         <module name="m4-service" />
       </profile>
-      <profile name="Annotation profile for m5-service" enabled="true">
+      <profile name="Annotation profile for m6-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
+        <module name="m6-service" />
         <module name="m5-service" />
       </profile>
     </annotationProcessing>
@@ -43,6 +44,7 @@
       <module name="m3-service" options="-parameters" />
       <module name="m4-service" options="-parameters" />
       <module name="m5-service" options="-parameters" />
+      <module name="m6-service" options="-parameters" />
     </option>
   </component>
 </project>

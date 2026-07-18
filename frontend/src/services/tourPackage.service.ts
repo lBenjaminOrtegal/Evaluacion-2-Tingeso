@@ -1,8 +1,6 @@
 import httpClient from "../http-common";
 import type { TourPackage } from "../interfaces/tourPackage.interface";
 
-// separate users from admin for get methods (users m3, admin m2)
-
 const getAllUser = () => {
   return httpClient.get("/api/search/tour-packages");
 };

@@ -56,16 +56,4 @@ public class TourPackageController {
         );
         return ResponseEntity.ok(tourPackageService.findCustomFilters(tourPackageFiltersDTO));
     }
-
-    @PostMapping("/sync")
-    public ResponseEntity<Void> sync(@RequestBody TourPackage tourPackage) {
-        tourPackageService.syncCopy(tourPackage);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/sync/{id}")
-    public ResponseEntity<Void> syncDelete(@PathVariable Long id) {
-        tourPackageService.syncDeleteCopy(id);
-        return ResponseEntity.ok().build();
-    }
 }

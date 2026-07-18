@@ -2,15 +2,15 @@ import httpClient from "../http-common";
 import type { Reservation } from "../interfaces/reservation.interface";
 
 const getAll = () => {
-  return httpClient.get("/api/reservations");
+  return httpClient.get("/api/follow/reservations");
 };
 
 const getById = (id: number) => {
-  return httpClient.get(`/api/reservations/${id}`);
+  return httpClient.get(`/api/follow/reservations/${id}`);
 };
 
 const getByEmail = (email: string) => {
-  return httpClient.get(`/api/reservations/user-email/${email}`);
+  return httpClient.get(`/api/follow/reservations/user-email/${email}`);
 };
 
 const getDateReports = (startDate: string, endDate: string) => {
@@ -43,11 +43,11 @@ const calculatePrice = (data: Reservation) => {
 };
 
 const update = (data: Reservation) => {
-  return httpClient.put("/api/reservations", data);
+  return httpClient.put("/api/follow/reservations", data);
 };
 
 const deleteById = (id: number) => {
-  return httpClient.delete(`/api/reservations/${id}`);
+  return httpClient.delete(`/api/follow/reservations/${id}`);
 };
 
 export default {

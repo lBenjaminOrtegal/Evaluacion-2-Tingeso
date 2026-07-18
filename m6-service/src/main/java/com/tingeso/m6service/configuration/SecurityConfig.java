@@ -1,8 +1,7 @@
-package com.tingeso.m3service.configuration;
+package com.tingeso.m6service.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -28,10 +27,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/internal/**").permitAll()
-                        .requestMatchers(HttpMethod.GET,
-                                "/api/search/tour-packages",
-                                "/api/search/tour-packages/filters",
-                                "/api/search/tour-packages/{id}").permitAll()
                         .anyRequest().authenticated()
                 )
                 .oauth2ResourceServer(oauth2 ->
@@ -47,7 +42,6 @@ public class SecurityConfig {
             if (realmAccess != null && realmAccess.get("roles") instanceof List<?> roles) {
                 roles.forEach(r -> authorities.add(new SimpleGrantedAuthority("ROLE_" + r)));
             }
-
             return authorities;
         });
         return converter;

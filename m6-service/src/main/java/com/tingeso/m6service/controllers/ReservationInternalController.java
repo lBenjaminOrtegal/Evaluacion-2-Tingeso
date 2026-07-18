@@ -1,8 +1,7 @@
-package com.tingeso.m4service.controllers;
+package com.tingeso.m6service.controllers;
 
-import com.tingeso.m4service.entities.Reservation;
-import com.tingeso.m4service.services.ReservationService;
-import jakarta.validation.Valid;
+import com.tingeso.m6service.entities.Reservation;
+import com.tingeso.m6service.services.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/internal/reservations")
+@RequestMapping("/internal/follow/reservations")
 @RequiredArgsConstructor
 public class ReservationInternalController {
 
@@ -26,19 +25,15 @@ public class ReservationInternalController {
         return ResponseEntity.ok(reservationService.findById(id));
     }
 
-    @PutMapping("/just-save")
-    public ResponseEntity<Reservation> justSave(@RequestBody Reservation reservation) {
-        return ResponseEntity.ok(reservationService.justSave(reservation));
+    @PostMapping("/sync")
+    public ResponseEntity<Void> sync(@RequestBody Reservation reservation) {
+        reservationService.syncCopy(reservation);
+        return ResponseEntity.ok().build();
     }
 
-    @PutMapping
-    public ResponseEntity<Reservation> update(@Valid @RequestBody Reservation reservation) {
-        return ResponseEntity.ok(reservationService.update(reservation));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id) {
-        reservationService.deleteById(id);
+    @DeleteMapping("/sync/{id}")
+    public ResponseEntity<Void> syncDelete(@PathVariable Long id) {
+        reservationService.syncDeleteCopy(id);
         return ResponseEntity.ok().build();
     }
 }

@@ -43,3 +43,8 @@ spring:
               uri: lb://m5-service
               predicates:
                 - Path=/api/transactions/**
+
+            - id: reservations-follow-service
+              uri: lb://m6-service
+              predicates:
+                - Path=/api/follow/reservations/**

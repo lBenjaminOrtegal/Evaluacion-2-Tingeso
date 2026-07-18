@@ -40,7 +40,7 @@ public class TourPackageService {
     private void syncPostToM3(TourPackage tourPackage) {
         try {
             restTemplate.postForObject(
-                    "http://m3-service/api/search/tour-packages/sync",
+                    "http://m3-service/internal/search/tour-packages/sync",
                     tourPackage,
                     Void.class
             );
@@ -51,7 +51,7 @@ public class TourPackageService {
 
     private void syncDeleteToM3(Long id) {
         try {
-            restTemplate.delete("http://m3-service/api/search/tour-packages/sync/" + id);
+            restTemplate.delete("http://m3-service/internal/search/tour-packages/sync/" + id);
         } catch (Exception e) {
             throw new ResourceNotFoundException("Error while synchronizing tour package delete.");
         }

@@ -1,8 +1,7 @@
-package com.tingeso.m4service.controllers;
+package com.tingeso.m6service.controllers;
 
-import com.tingeso.m4service.dto.DiscountDataDTO;
-import com.tingeso.m4service.entities.Reservation;
-import com.tingeso.m4service.services.ReservationService;
+import com.tingeso.m6service.entities.Reservation;
+import com.tingeso.m6service.services.ReservationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reservations")
+@RequestMapping("/api/follow/reservations")
 @RequiredArgsConstructor
 public class ReservationController {
 
@@ -37,14 +36,15 @@ public class ReservationController {
     }
 
     @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping
-    public ResponseEntity<Reservation> create(@Valid @RequestBody Reservation reservation) {
-        return ResponseEntity.ok(reservationService.create(reservation));
+    @PutMapping
+    public ResponseEntity<Reservation> update(@Valid @RequestBody Reservation reservation) {
+        return ResponseEntity.ok(reservationService.update(reservation));
     }
 
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
-    @PostMapping("/calculate-price")
-    public ResponseEntity<DiscountDataDTO> calculatePrice(@RequestBody Reservation reservation) {
-        return ResponseEntity.ok(reservationService.calculatePrice(reservation));
+    @PreAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id) {
+        reservationService.deleteById(id);
+        return ResponseEntity.ok().build();
     }
 }

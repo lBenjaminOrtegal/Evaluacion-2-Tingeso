@@ -55,6 +55,26 @@ public class ReservationService {
         }
     }
 
+    private void syncPostToM6(Reservation reservation) {
+        try {
+            restTemplate.postForObject(
+                    "http://m6-service/internal/follow/reservations/sync",
+                    reservation,
+                    Void.class
+            );
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error while synchronizing reservation post.");
+        }
+    }
+
+    private void syncDeleteToM6(Long id) {
+        try {
+            restTemplate.delete("http://m6-service/internal/follow/reservations/sync/" + id);
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error while synchronizing reservation delete.");
+        }
+    }
+
     @Transactional(readOnly = true)
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
@@ -94,13 +114,14 @@ public class ReservationService {
         reservation.setReservationDate(LocalDateTime.now());
         Reservation saved = reservationRepository.save(reservation);
         m2_justSave(tourPackage);
+        syncPostToM6(saved);
         return saved;
     }
 
     @Transactional
     public Reservation justSave(Reservation reservation) {
         Reservation saved = reservationRepository.save(reservation);
-//        syncPostToM6(saved);
+        syncPostToM6(saved);
         return saved;
     }
 
@@ -157,6 +178,7 @@ public class ReservationService {
         }
         if (reservationSaved.getReservationState() == ReservationState.CANCELED) {
             reservationRepository.deleteById(id);
+            syncDeleteToM6(id);
             return;
         }
         tourPackage.setRemainingSpots(tourPackage.getRemainingSpots() + reservationSaved.getPassengersAmount());
