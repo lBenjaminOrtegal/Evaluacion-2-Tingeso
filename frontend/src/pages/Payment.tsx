@@ -165,7 +165,7 @@ function Payment() {
             <p className="fw-medium text-muted">
               ID de la transacción:{" "}
               <span className="fw-semibold text-dark">
-                # {createdTransaction?.id}
+                #{createdTransaction?.id}
               </span>
             </p>
             <p className="fw-medium text-muted">
@@ -194,7 +194,7 @@ function Payment() {
             <p className="fw-medium text-muted">
               Reserva asociada:{" "}
               <span className="fw-semibold text-dark">
-                # {createdTransaction?.reservationId}
+                #{createdTransaction?.reservationId}
               </span>
             </p>
           </Stack>
@@ -249,7 +249,7 @@ function Payment() {
               <div className="border-bottom pb-3">
                 <div className="d-flex justify-content-between mb-2">
                   <span className="text-muted fw-medium">ID de la reserva</span>
-                  <span className="fw-bold text-dark"># {reservation.id}</span>
+                  <span className="fw-bold text-dark">#{reservation.id}</span>
                 </div>
                 <div className="d-flex justify-content-between mb-2">
                   <span className="text-muted fw-medium">

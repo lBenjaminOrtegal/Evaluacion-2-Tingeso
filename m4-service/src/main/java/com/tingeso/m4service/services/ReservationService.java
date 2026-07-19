@@ -67,9 +67,21 @@ public class ReservationService {
         }
     }
 
-    private void syncDeleteToM6(Long id) {
+    private void syncPostToM7(Reservation reservation) {
         try {
-            restTemplate.delete("http://m6-service/internal/follow/reservations/sync/" + id);
+            restTemplate.postForObject(
+                    "http://m7-service/internal/reports/sync",
+                    reservation,
+                    Void.class
+            );
+        } catch (Exception e) {
+            throw new ResourceNotFoundException("Error while synchronizing reservation post.");
+        }
+    }
+
+    private void syncDeleteToM7(Long id) {
+        try {
+            restTemplate.delete("http://m7-service/internal/reports/sync/" + id);
         } catch (Exception e) {
             throw new ResourceNotFoundException("Error while synchronizing reservation delete.");
         }
@@ -115,6 +127,7 @@ public class ReservationService {
         Reservation saved = reservationRepository.save(reservation);
         m2_justSave(tourPackage);
         syncPostToM6(saved);
+        syncPostToM7(saved);
         return saved;
     }
 
@@ -122,6 +135,7 @@ public class ReservationService {
     public Reservation justSave(Reservation reservation) {
         Reservation saved = reservationRepository.save(reservation);
         syncPostToM6(saved);
+        syncPostToM7(saved);
         return saved;
     }
 
@@ -165,6 +179,7 @@ public class ReservationService {
         reservationSaved.setPrice(calculatePrice(reservation).getTotalAmount());
         Reservation saved = reservationRepository.save(reservationSaved);
         m2_justSave(tourPackage);
+        syncPostToM7(saved);
         return saved;
     }
 
@@ -178,12 +193,12 @@ public class ReservationService {
         }
         if (reservationSaved.getReservationState() == ReservationState.CANCELED) {
             reservationRepository.deleteById(id);
-            syncDeleteToM6(id);
             return;
         }
         tourPackage.setRemainingSpots(tourPackage.getRemainingSpots() + reservationSaved.getPassengersAmount());
         tourPackage.setTourPackageState(String.valueOf(TourPackageState.AVAILABLE));
         reservationRepository.deleteById(id);
+        syncDeleteToM7(id);
         m2_justSave(tourPackage);
     }
 

@@ -16,7 +16,7 @@ const getByEmail = (email: string) => {
 const getDateReports = (startDate: string, endDate: string) => {
   const start = `${startDate}T00:00:00`;
   const end = `${endDate}T23:59:59`;
-  return httpClient.get(`/api/reservations/reports/date`, {
+  return httpClient.get(`/api/reports/date`, {
     params: { startDate: start, endDate: end },
   });
 };
@@ -29,7 +29,7 @@ const getRanking = (
 ) => {
   const start = `${startDate}T00:00:00`;
   const end = `${endDate}T23:59:59`;
-  return httpClient.get(`/api/reservations/reports/ranking`, {
+  return httpClient.get(`/api/reports/ranking`, {
     params: { startDate: start, endDate: end, order, type },
   });
 };

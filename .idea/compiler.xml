@@ -11,27 +11,28 @@
         <module name="eureka-server" />
         <module name="config-server" />
       </profile>
-      <profile name="Annotation profile for m4-service" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-        <processorPath useClasspath="false">
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
-          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
-        </processorPath>
-        <module name="m3-service" />
-        <module name="m2-service" />
-        <module name="m4-service" />
-      </profile>
       <profile name="Annotation profile for m6-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
         </processorPath>
-        <module name="m6-service" />
         <module name="m5-service" />
+        <module name="m3-service" />
+        <module name="m4-service" />
+        <module name="m6-service" />
+        <module name="m2-service" />
+      </profile>
+      <profile name="Annotation profile for m7-service" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.46/lombok-1.18.46.jar" />
+        </processorPath>
+        <module name="m7-service" />
       </profile>
     </annotationProcessing>
   </component>
@@ -45,6 +46,7 @@
       <module name="m4-service" options="-parameters" />
       <module name="m5-service" options="-parameters" />
       <module name="m6-service" options="-parameters" />
+      <module name="m7-service" options="-parameters" />
     </option>
   </component>
 </project>

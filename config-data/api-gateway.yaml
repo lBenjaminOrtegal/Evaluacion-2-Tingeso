@@ -48,3 +48,8 @@ spring:
               uri: lb://m6-service
               predicates:
                 - Path=/api/follow/reservations/**
+
+            - id: reports-service
+              uri: lb://m7-service
+              predicates:
+                - Path=/api/reports/**
