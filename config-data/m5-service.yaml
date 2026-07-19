@@ -4,7 +4,7 @@ server:
 eureka:
   client:
     service-url:
-      defaultZone: http://${EUREKA_ZONE}:8761/eureka/
+      defaultZone: ${EUREKA_ZONE}
   instance:
     instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
     prefer-ip-address: true
@@ -14,10 +14,10 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://${KEYCLOAK_HOST}:7080/realms/tingeso-2-realm/protocol/openid-connect/certs
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI}
   datasource:
-    url: jdbc:mysql://${DB_HOST}:3306/${DB_M5}
-    username: ${DB_USERNAME}
+    url: ${DB_M5_URL}
+    username: ${DB_USER}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:

@@ -1,0 +1,57 @@
+# GATEWAY
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-deployment
+  labels:
+    app: gateway
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway
+  template:
+    metadata:
+      labels:
+        app: gateway
+    spec:
+      containers:
+        - name: gateway
+          image: benjaminoq/ev-2-tingeso-api-gateway:latest
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: CONFIG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG_HOST
+            - name: EUREKA_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: EUREKA_ZONE
+            - name: KEYCLOAK_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_JWK_SET_URI
+            - name: ALLOWED_ORIGINS
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: ALLOWED_ORIGINS
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-service
+spec:
+  type: NodePort
+  selector:
+    app: gateway
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30808

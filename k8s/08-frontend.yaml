@@ -1,0 +1,49 @@
+# FRONTEND
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    role: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: benjaminoq/ev-2-tingeso-frontend:latest
+          ports:
+            - containerPort: 8070
+              protocol: TCP
+          env:
+            - name: VITE_BACKEND_SERVER
+              value: "192.168.59.100"
+            - name: VITE_BACKEND_PORT
+              value: "38080"
+            - name: VITE_KEYCLOAK_SERVER
+              value: "192.168.59.100"
+            - name: VITE_KEYCLOAK_PORT
+              value: "30708"
+            - name: VITE_KEYCLOAK_REALM
+              value: "tingeso-2-realm"
+            - name: VITE_KEYCLOAK_CLIENT_ID
+              value: "tingeso-2-frontend"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend-service
+spec:
+  type: NodePort
+  selector:
+    app: frontend
+  ports:
+    - port: 8070
+      targetPort: 8070
+      nodePort: 30807

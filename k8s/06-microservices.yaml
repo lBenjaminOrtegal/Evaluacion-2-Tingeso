@@ -1,0 +1,382 @@
+# M2-SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m2-service-deployment
+  labels:
+    role: m2-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m2-service
+  template:
+    metadata:
+      labels:
+        app: m2-service
+    spec:
+      containers:
+        - name: m2-service
+          image: benjaminoq/ev-2-tingeso-m2-service:latest
+          env:
+            - name: CONFIG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG_HOST
+            - name: EUREKA_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: EUREKA_ZONE
+            - name: DB_M2_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_M2_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+            - name: KEYCLOAK_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_JWK_SET_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m2-service-service
+spec:
+  type: ClusterIP
+  selector:
+    app: m2-service
+  ports:
+    - port: 8080
+
+---
+# M3-SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m3-service-deployment
+  labels:
+    role: m3-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m3-service
+  template:
+    metadata:
+      labels:
+        app: m3-service
+    spec:
+      containers:
+        - name: m3-service
+          image: benjaminoq/ev-2-tingeso-m3-service:latest
+          env:
+            - name: CONFIG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG_HOST
+            - name: EUREKA_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: EUREKA_ZONE
+            - name: DB_M3_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_M3_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+            - name: KEYCLOAK_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_JWK_SET_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m3-service-service
+spec:
+  type: ClusterIP
+  selector:
+    app: m3-service
+  ports:
+    - port: 8080
+
+---
+# M4-SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m4-service-deployment
+  labels:
+    role: m4-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m4-service
+  template:
+    metadata:
+      labels:
+        app: m4-service
+    spec:
+      containers:
+        - name: m4-service
+          image: benjaminoq/ev-2-tingeso-m4-service:latest
+          env:
+            - name: CONFIG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG_HOST
+            - name: EUREKA_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: EUREKA_ZONE
+            - name: DB_M4_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_M4_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+            - name: KEYCLOAK_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_JWK_SET_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m4-service-service
+spec:
+  type: ClusterIP
+  selector:
+    app: m4-service
+  ports:
+    - port: 8080
+
+---
+# M5-SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m5-service-deployment
+  labels:
+    role: m5-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m5-service
+  template:
+    metadata:
+      labels:
+        app: m5-service
+    spec:
+      containers:
+        - name: m5-service
+          image: benjaminoq/ev-2-tingeso-m5-service:latest
+          env:
+            - name: CONFIG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG_HOST
+            - name: EUREKA_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: EUREKA_ZONE
+            - name: DB_M5_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_M5_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+            - name: KEYCLOAK_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_JWK_SET_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m5-service-service
+spec:
+  type: ClusterIP
+  selector:
+    app: m5-service
+  ports:
+    - port: 8080
+
+---
+# M6-SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m6-service-deployment
+  labels:
+    role: m6-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m6-service
+  template:
+    metadata:
+      labels:
+        app: m6-service
+    spec:
+      containers:
+        - name: m6-service
+          image: benjaminoq/ev-2-tingeso-m6-service:latest
+          env:
+            - name: CONFIG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG_HOST
+            - name: EUREKA_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: EUREKA_ZONE
+            - name: DB_M6_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_M6_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+            - name: KEYCLOAK_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_JWK_SET_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m6-service-service
+spec:
+  type: ClusterIP
+  selector:
+    app: m6-service
+  ports:
+    - port: 8080
+
+---
+# M7-SERVICE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m7-service-deployment
+  labels:
+    role: m7-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: m7-service
+  template:
+    metadata:
+      labels:
+        app: m7-service
+    spec:
+      containers:
+        - name: m7-service
+          image: benjaminoq/ev-2-tingeso-m7-service:latest
+          env:
+            - name: CONFIG_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: CONFIG_HOST
+            - name: EUREKA_ZONE
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: EUREKA_ZONE
+            - name: DB_M7_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: DB_M7_URL
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+            - name: KEYCLOAK_JWK_SET_URI
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_JWK_SET_URI
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: m7-service-service
+spec:
+  type: ClusterIP
+  selector:
+    app: m7-service
+  ports:
+    - port: 8080

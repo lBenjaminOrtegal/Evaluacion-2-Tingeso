@@ -1,0 +1,79 @@
+# KEYCLOAK
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: keycloak-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-deployment
+  labels:
+    app: keycloak
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keycloak
+  template:
+    metadata:
+      labels:
+        app: keycloak
+    spec:
+      containers:
+        - name: keycloak
+          image: quay.io/keycloak/keycloak:26.2.4
+          args: ["start-dev", "--import-realm", "--http-port", "7080"]
+          ports:
+            - containerPort: 7080
+              protocol: TCP
+          env:
+            - name: KC_BOOTSTRAP_ADMIN_USERNAME
+              value: admin
+            - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: keycloak-credentials
+                  key: admin_password
+            - name: KC_PROXY_HEADERS
+              value: xforwarded
+            - name: KC_HTTP_ENABLED
+              value: "true"
+            - name: KC_HOSTNAME_BACKCHANNEL_DYNAMIC
+              value: "true"
+            - name: KC_HOSTNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: KEYCLOAK_HOST
+          volumeMounts:
+            - mountPath: /opt/keycloak/data
+              name: keycloak-storage
+            - mountPath: /opt/keycloak/data/import
+              name: keycloak-realm-volume
+      volumes:
+        - name: keycloak-storage
+          persistentVolumeClaim:
+            claimName: keycloak-pvc
+        - name: keycloak-realm-volume
+          configMap:
+            name: keycloak-realm-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: keycloak-service
+spec:
+  type: NodePort
+  selector:
+    app: keycloak
+  ports:
+    - port: 7080
+      targetPort: 7080
+      nodePort: 30708

@@ -32,8 +32,6 @@ public class SecurityConfig {
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .authorizeExchange((auth) -> auth
                         .pathMatchers("/actuator/**").permitAll()
-                        .pathMatchers("/api/tour-packages/sync/**").denyAll()
-                        .pathMatchers("/api/search/tour-packages/sync/**").denyAll()
                         .pathMatchers("/internal/**").denyAll()
                         .pathMatchers(HttpMethod.GET, // m2
                                 "/api/tour-packages",

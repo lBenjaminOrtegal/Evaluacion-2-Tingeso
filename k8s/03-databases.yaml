@@ -1,0 +1,442 @@
+# M2-SERVICE-DB
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-m2-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-m2-deployment
+  labels:
+    app: mysql-m2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-m2
+  template:
+    metadata:
+      labels:
+        app: mysql-m2
+    spec:
+      containers:
+        - name: mysql-m2
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          env:
+            - name: MYSQL_DATABASE
+              value: db_m2
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: root_password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-m2-storage
+          imagePullPolicy: IfNotPresent
+      volumes:
+        - name: mysql-m2-storage
+          persistentVolumeClaim:
+            claimName: mysql-m2-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-m2-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-m2
+  ports:
+    - port: 3306
+      targetPort: 3306
+
+# M3-SERVICE-DB
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-m3-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-m3-deployment
+  labels:
+    app: mysql-m3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-m3
+  template:
+    metadata:
+      labels:
+        app: mysql-m3
+    spec:
+      containers:
+        - name: mysql-m3
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          env:
+            - name: MYSQL_DATABASE
+              value: db_m3
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: root_password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-m3-storage
+          imagePullPolicy: IfNotPresent
+      volumes:
+        - name: mysql-m3-storage
+          persistentVolumeClaim:
+            claimName: mysql-m3-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-m3-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-m3
+  ports:
+    - port: 3306
+      targetPort: 3306
+
+# M4-SERVICE-DB
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-m4-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-m4-deployment
+  labels:
+    app: mysql-m4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-m4
+  template:
+    metadata:
+      labels:
+        app: mysql-m4
+    spec:
+      containers:
+        - name: mysql-m4
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          env:
+            - name: MYSQL_DATABASE
+              value: db_m4
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: root_password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-m4-storage
+          imagePullPolicy: IfNotPresent
+      volumes:
+        - name: mysql-m4-storage
+          persistentVolumeClaim:
+            claimName: mysql-m4-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-m4-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-m4
+  ports:
+    - port: 3306
+      targetPort: 3306
+
+# M5-SERVICE-DB
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-m5-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-m5-deployment
+  labels:
+    app: mysql-m5
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-m5
+  template:
+    metadata:
+      labels:
+        app: mysql-m5
+    spec:
+      containers:
+        - name: mysql-m5
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          env:
+            - name: MYSQL_DATABASE
+              value: db_m5
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: root_password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-m5-storage
+          imagePullPolicy: IfNotPresent
+      volumes:
+        - name: mysql-m5-storage
+          persistentVolumeClaim:
+            claimName: mysql-m5-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-m5-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-m5
+  ports:
+    - port: 3306
+      targetPort: 3306
+
+# M6-SERVICE-DB
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-m6-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-m6-deployment
+  labels:
+    app: mysql-m6
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-m6
+  template:
+    metadata:
+      labels:
+        app: mysql-m6
+    spec:
+      containers:
+        - name: mysql-m6
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          env:
+            - name: MYSQL_DATABASE
+              value: db_m6
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: root_password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-m6-storage
+          imagePullPolicy: IfNotPresent
+      volumes:
+        - name: mysql-m6-storage
+          persistentVolumeClaim:
+            claimName: mysql-m6-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-m6-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-m6
+  ports:
+    - port: 3306
+      targetPort: 3306
+
+# M7-SERVICE-DB
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-m7-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-m7-deployment
+  labels:
+    app: mysql-m7
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-m7
+  template:
+    metadata:
+      labels:
+        app: mysql-m7
+    spec:
+      containers:
+        - name: mysql-m7
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+              protocol: TCP
+          env:
+            - name: MYSQL_DATABASE
+              value: db_m7
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: root_password
+            - name: MYSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: user_password
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: mysql-m7-storage
+          imagePullPolicy: IfNotPresent
+      volumes:
+        - name: mysql-m7-storage
+          persistentVolumeClaim:
+            claimName: mysql-m7-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-m7-service
+spec:
+  type: ClusterIP
+  selector:
+    app: mysql-m7
+  ports:
+    - port: 3306
+      targetPort: 3306
