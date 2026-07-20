@@ -4,8 +4,8 @@ metadata:
   name: app-config
 data:
   EUREKA_ZONE: "http://eureka-service:8761/eureka/"
-  CONFIG_HOST: "http://config-service:8081"
-  KEYCLOAK_HOST: "http://192.168.59.100:30708"
+  CONFIG_HOST: "config-service"
+  KEYCLOAK_HOST: "http://192.168.59.105:30708"
   KEYCLOAK_ISSUER_URI: "http://keycloak-service:7080/realms/tingeso-2-realm"
   KEYCLOAK_JWK_SET_URI: "http://keycloak-service:7080/realms/tingeso-2-realm/protocol/openid-connect/certs"
   DB_M2_URL: "jdbc:mysql://mysql-m2-service:3306/db_m2"
@@ -14,4 +14,4 @@ data:
   DB_M5_URL: "jdbc:mysql://mysql-m5-service:3306/db_m5"
   DB_M6_URL: "jdbc:mysql://mysql-m6-service:3306/db_m6"
   DB_M7_URL: "jdbc:mysql://mysql-m7-service:3306/db_m7"
-  ALLOWED_ORIGINS: "http://192.168.59.100:30807"
+  ALLOWED_ORIGINS: "http://192.168.59.105:30807"

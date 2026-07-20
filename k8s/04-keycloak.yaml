@@ -29,7 +29,7 @@ spec:
       containers:
         - name: keycloak
           image: quay.io/keycloak/keycloak:26.2.4
-          args: ["start-dev", "--import-realm", "--http-port", "7080"]
+          args: ["start-dev", "--http-port", "7080"]
           ports:
             - containerPort: 7080
               protocol: TCP
@@ -55,15 +55,10 @@ spec:
           volumeMounts:
             - mountPath: /opt/keycloak/data
               name: keycloak-storage
-            - mountPath: /opt/keycloak/data/import
-              name: keycloak-realm-volume
       volumes:
         - name: keycloak-storage
           persistentVolumeClaim:
             claimName: keycloak-pvc
-        - name: keycloak-realm-volume
-          configMap:
-            name: keycloak-realm-config
 ---
 apiVersion: v1
 kind: Service

@@ -25,7 +25,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: config-server-service
+  name: config-service
 spec:
   type: ClusterIP
   selector:
@@ -68,7 +68,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: eureka-server-service
+  name: eureka-service
 spec:
   type: ClusterIP
   selector:

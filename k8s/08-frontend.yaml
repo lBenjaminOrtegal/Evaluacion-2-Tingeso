@@ -19,15 +19,15 @@ spec:
         - name: frontend
           image: benjaminoq/ev-2-tingeso-frontend:latest
           ports:
-            - containerPort: 8070
+            - containerPort: 80
               protocol: TCP
           env:
             - name: VITE_BACKEND_SERVER
-              value: "192.168.59.100"
+              value: "192.168.59.105"
             - name: VITE_BACKEND_PORT
-              value: "38080"
+              value: "30808"
             - name: VITE_KEYCLOAK_SERVER
-              value: "192.168.59.100"
+              value: "192.168.59.105"
             - name: VITE_KEYCLOAK_PORT
               value: "30708"
             - name: VITE_KEYCLOAK_REALM
@@ -44,6 +44,6 @@ spec:
   selector:
     app: frontend
   ports:
-    - port: 8070
-      targetPort: 8070
+    - port: 80
+      targetPort: 80
       nodePort: 30807
